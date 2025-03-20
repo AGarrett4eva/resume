@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agnes Simon | Political Science & Education</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text: #333;
+            --text-light: #7f8c8d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            z-index: 1;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100" fill="none" stroke="white" stroke-width="2"/></svg>');
+            background-size: 20px;
+        }
+        
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .profile-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .profile-text p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .contact-info {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        
+        .nav-tabs::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .nav-tab {
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            color: var(--text-light);
+            cursor: pointer;
+            white-space: nowrap;
+            position: relative;
+        }
+        
+        .nav-tab.active {
+            color: var(--secondary);
+        }
+        
+        .nav-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .section-title::before {
+            content: '';
+            width: 8px;
+            height: 30px;
+            background-color: var(--secondary);
+            display: inline-block;
+            border-radius: 4px;
+        }
+        
+        .timeline {
+            position: relative;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            height: calc(100% - 10px);
+            width: 3px;
+            background-color: #e0e0e0;
+        }
+        
+        .timeline-item {
+            padding-left: 2rem;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            border: 2px solid white;
+        }
+        
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .timeline-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+        
+        .timeline-period {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            background-color: var(--light);
+            padding: 0.2rem 0.8rem;
+            border-radius: 100px;
+        }
+        
+        .timeline-subtitle {
+            color: var(--text-light);
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+        
+        .publications {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        .publication-item {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .publication-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .publication-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .publication-meta {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+        
+        .publication-coauthors {
+            font-style: italic;
+        }
+        
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        
+        .skill-tag {
+            background-color: var(--light);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .profile {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .contact-info {
+                justify-content: center;
+            }
+            
+            .timeline::before {
+                left: 18px;
+            }
+            
+            .timeline-item {
+                padding-left: 40px;
+            }
+            
+            .timeline-item::before {
+                left: 13px;
+            }
+            
+            .timeline-header {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .timeline-period {
+                align-self: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-bg"></div>
+        <div class="header-content">
+            <div class="profile">
+                <div class="profile-image">AS</div>
+                <div class="profile-text">
+                    <h1>Agnes Simon</h1>
+                    <p>Political Science Researcher & Educational Development Specialist</p>
+                </div>
+            </div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383-4.708 2.825L15 11.105V5.383zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741zM1 11.105l4.708-2.897L1 5.383v5.722z"/>
+                    </svg>
+                    agnes.simon@uniba.sk
+                </div>
+                <div class="contact-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
+                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                    </svg>
+                    Comenius University, Bratislava, Slovakia
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <div class="nav-tabs">
+            <div class="nav-tab active" data-tab="about">About</div>
+            <div class="nav-tab" data-tab="experience">Experience</div>
+            <div class="nav-tab" data-tab="education">Education</div>
+            <div class="nav-tab" data-tab="publications">Publications</div>
+            <div class="nav-tab" data-tab="teaching">Teaching</div>
+            <div class="nav-tab" data-tab="conferences">Conferences</div>
+            <div class="nav-tab" data-tab="skills">Skills & Interests</div>
+        </div>
+        
+        <div id="about" class="tab-content active">
+            <div class="section">
+                <h2 class="section-title">About Me</h2>
+                <p>I am a Scientific Research Officer with specialization in Educational Development and Political Science. My research interests include American foreign policy, summit diplomacy, foreign policy decision-making, and teaching methodology in International Relations. With a background in both research and teaching, I focus on enhancing academic teaching practices and internationalization through various European projects.</p>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">Current Position</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-title">Scientific Research Officer</div>
+                            <div class="timeline-period">May 2022 - Present</div>
+                        </div>
+                        <div class="timeline-subtitle">Centrum podpory pedagógov, Comenius University in Bratislava</div>
+                        <p>Working on the Erasmus+ Project "Better Education through Long-term Investment into Inclusiveness and Student and Staff Wellbeing (BELONG)" (No. 2021-1-SK01-KA220-HED-000023528)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">Research Interests</h2>
+                <div class="skills">
+                    <div class="skill-tag">American Foreign Policy</div>
+                    <div class="skill-tag">Summit Diplomacy</div>
+                    <div class="skill-tag">U.S.-Soviet Hotline</div>
+                    <div class="skill-tag">Foreign Policy Decision-making</div>
+                    <div class="skill-tag">Presidential Politics</div>
+                    <div class="skill-tag">Political Leadership</div>
+                    <div class="skill-tag">Hungarian Politics</div>
+                    <div class="skill-tag">Teaching Methodology in IR</div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="experience" class="tab-content">
+            <div class="section">
+                <h2 class="section-title">Professional Experience</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-title">Scientific Research Officer</div>
+                            <div class="timeline-period">May 2022 - Present</div>
+                        </div>
+                        <div class="timeline-subtitle">Centrum podpory pedagógov, Comenius University in Bratislava</div>
+                        <p>Working on the Erasmus+ Project "Better Education through Long-term Investment into Inclusiveness and Student and Staff Wellbeing (BELONG)" (No. 2021-1-SK01-KA220-HED-000023528)</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-title">Evaluation Team Leader</div>
+                            <div class="timeline-period">September 2019 - May 2022</div>
+                        </div>
+                        <div class="timeline-subtitle">Competence Development Centre (CERPEK), Masaryk University</div>
+                        <p>Led the evaluation team for the Erasmus+ Project "Improving Academic Teaching and Internationalisation through Enhanced Competences of University Teachers (IMPACT)" (No. 2019-1-SK01-KA203-060671)</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-title">Educational Development Advisor</div>
+                            <div class="timeline-period">September 2016 - August 2019</div>
+                        </div>
+                        <div class="timeline-subtitle">Department of International Relations and European Studies, Masaryk University</div>
+                        <p>Advised on the Erasmus+ Project "Extending and Reinforcing Good Practice in Teacher Development" (No. 2016-1-SK01-KA203-022551)</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-title">Adjunct</div>
+                            <div class="timeline-period">2017 - 2021</div>
+                        </div>
+                        <div class="timeline-subtitle">Center for North American Studies, University of Economics in Bratislava</div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-title">Mentor</div>
+                            <div class="timeline-period">2014, 2016, 2018, 2020</div>
+                        </div>
+                        <div class="timeline-subtitle">Teaching and Learning Summer School, European Consortium for Political Research</div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-title">Instructor of Political Science</div>
+                            <div class="timeline-period">2014 - 2016</div>
+                        </div>
+                        <div class="timeline-subtitle">Department of Political Science, Saginaw Valley State University</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="education" class="tab-content">
+            <div class="section">
+                <h2 class="section-title">Education</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-title">Ph.D. in Political Science</div>
+                            <div class="timeline-period">2005 - 2012</div>
+                        </div>
+                        <div class="timeline-subtitle">University of Missouri</div>
+                        <p>Concentrations: International Relations, American Politics</p>
+                        <p>Dissertation: "The Political and Economic Consequences of the Summit Diplomatic Activity of the U.S. President"</p>
+                        <p>Committee: A. Cooper Drury (chair), Marvin Overby, Stephen Quackenbush, Robert M. Collins (history)</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-title">Ph.D. Candidate, Political Science</div>
+                            <div class="timeline-period">2002 - 2003</div>
+                        </div>
+                        <div class="timeline-subtitle">Central European University</div>
+                        <p>International Relations and European Studies track</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-title">M.A., International Relations and European Studies</div>
+                            <div class="timeline-period">2001 - 2002</div>
+                        </div>
+                        <div class="timeline-subtitle">Central European University</div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-title">B.A., History</div>
+                            <div class="timeline-period">1996 - 2001</div>
+                        </div>
+                        <div class="timeline-subtitle">University of Szeged</div>
+                        <p>Specialization in Political Science, European Politics; Teacher trainee</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="publications" class="tab-content">
+            <div class="section">
+                <h2 class="section-title">Publications</h2>
+                
+                <h3 style="margin-bottom: 1rem; color: var(--secondary);">Peer Reviewed Articles</h3>
+                <div class="publications">
+                    <div class="publication-item">
+                        <div class="publication-title">"Rolling Stones: Dissident Intellectuals in Hungary (1977–1994)"</div>
+                        <div class="publication-meta">East European Politics, 2021, 37:2, pp. 352-378</div>
+                        <div class="publication-coauthors">With András Bozóki</div>
+                    </div>
+                    
+                    <div class="publication-item">
+                        <div class="publication-title">"Trusting through the Moscow-Washington Hotline: a Role Theoretical Explanation of the Hotline's Contribution to Signal Interpretation and Crisis Stability"</div>
+                        <div class="publication-meta">Journal of Global Security Studies, 2020, 5:4, pp. 658–674</div>
+                        <div class="publication-coauthors">With Eszter Simon</div>
+                    </div>
+                    
+                    <div class="publication-item">
+                        <div class="publication-title">"Teaching and Learning about Foreign Policy Decision-making via Board-gaming and Reflections"</div>
+                        <div class="publication-meta">European Political Science, 2020, 19:1, pp. 9-28</div>
+                    </div>
+                    
+                    <div class="publication-item">
+                        <div class="publication-title">"The Soviet Use of the Moscow-Washington Hotline in the Six-Day War"</div>
+                        <div class="publication-meta">Journal of Transatlantic Studies, 2017, 15:3, pp. 284-305</div>
+                        <div class="publication-coauthors">With Eszter Simon</div>
+                    </div>
+                </div>
+                
+                <h3 style="margin: 2rem 0 1rem; color: var(--secondary);">Book Chapters</h3>
+                <div class="publications">
+                    <div class="publication-item">
+                        <div class="publication-title">"Team up: Lessons from moving an academic writing course for university teachers in Slovakia and Czechia online"</div>
+                        <div class="publication-meta">In International Perspectives on Teaching and Learning Academic English in Turbulent Times, Forthcoming 2022</div>
+                        <div class="publication-coauthors">With Linda Steyne, Agnes Simon, Angeniet Kam, Eszter Timár, and Jan Beneš</div>
+                    </div>
+                    
+                    <div class="publication-item">
+                        <div class="publication-title">"Doctoral Students as Early Career University Teachers. What Hinders and What Helps them to Embrace the Essentials of Good Teaching?"</div>
+                        <div class="publication-meta">In The Future of Doctoral Research. Challenges and Opportunities, 2021</div>
+                        <div class="publication-coauthors">With Gabriela Pleschová</div>
+                    </div>
+                    
+                    <div class="publication-item">
+                        <div class="publication-title">"Conclusion: Inspiring change in teaching in Central Europe and elsewhere"</div>
+                        <div class="publication-meta">In Early Career Academics' Reflections on Learning to Teach in Central Europe, 2018</div>
+                    </div>
+                </div>
+                
+                <h3 style="margin: 2rem 0 1rem; color: var(--secondary);">Edited Books</h3>
+                <div class="publications">
+                    <div class="publication-item">
+                        <div class="publication-title">"Early Career Academics' Reflections on Learning to Teach in Central Europe"</div>
+                        <div class="publication-meta">London: SEDA, 2018. ISBN 978-1-902435-63-3</div>
+                        <div class="publication-coauthors">With Gabriela Pleschová</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="teaching" class="tab-content">
+            <div class="section">
+                <h2 class="section-title">Teaching Experience</h2>
+                
+                <h3 style="margin-bottom: 1rem; color: var(--secondary);">Masaryk University</h3>
+                <ul style="list-style-type: none; margin-bottom: 2rem;">
+                    <li style="margin-bottom: 0.5rem;">• Effective Teaching for Internationalisation (Online, 2-year) – 2020-2022</li>
+                    <li style="margin-bottom: 0.5rem;">• Academic Writing for Publication Workshop (Online) – Fall 2021, Fall 2022</li>
+                    <li style="margin-bottom: 0.5rem;">• Learning-centred and Reflective Teaching. From Theory to Good Practice – 2017-2019</li>
+                    <li style="margin-bottom: 0.5rem;">• Extending and Reinforcing Good Practice in Teacher Development: Training Program for New Educational Developers – Fall 2017, Fall 2018</li>
+                </ul>
+                
+                <h3 style="margin-bottom: 1rem; color: var(--secondary);">Economic University in Bratislava</h3>
+                <ul style="list-style-type: none; margin-bottom: 2rem;">
+                    <li style="margin-bottom: 0.5rem;">• Interdisciplinary Introduction to North American Studies – Spring 2017, Spring 2018, Spring 2019</li>
+                    <li style="margin-bottom: 0.5rem;">• Academic Writing Workshop for Young Faculty and Doctoral Students – Spring 2018</li>
+                </ul>
+                
+                <h3 style="margin-bottom: 1rem; color: var(--secondary);">Saginaw Valley State University</h3>
+                <ul style="list-style-type: none; margin-bottom: 2rem;">
+                    <li style="margin-bottom: 0.5rem;">• Statistics – Fall 2014, Winter 2015, Fall 2015, Winter 2016</li>
+                    <li style="margin-bottom: 0.5rem;">• Writing and Politics – Fall 2014, Winter 2015, Fall 2015</li>
+                    <li style="margin-bottom: 0.5rem;">• World Politics – Winter 2015, Fall 2015, Winter 2016</li>
+                </ul>
+                
+                <h3 style="margin-bottom: 1rem; color: var(--secondary);">Other Institutions</h3>
+                <ul style="list-style-type: none;">
+                    <li style="margin-bottom: 0.5rem;">• Cases in International Relations (MA course) – OSCE Academy, Spring 2014</li>
+                    <li style="margin-bottom: 0.5rem;">• American Government (Online) – Arkansas Tech University, 2012-2014</li>
+                    <li style="margin-bottom: 0.5rem;">• American Foreign Policy (Online) – Park University, 2013-2014</li>
+                    <li style="margin-bottom: 0.5rem;">• Various Political Science courses – Westminster College, 2011-2012</li>
+                    <li style="margin-bottom: 0.5rem;">• International Relations, American Government – University of Missouri, 2009-2012</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div id="conferences" class="tab-content">
+            <div class="section">
+                <h2 class="section-title">Conference Presentations</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-title">"Coaching Teaching and Learning Online in an International Environment Principles, Goals and Practices"</div>
+                            <div class="timeline-period">2021</div>
+                        </div>
+                        <div class="timeline-subtitle">International Conference on Lifelong Learning, Brno, Czech Republic</div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-title">"Stimulating Academic Writing for Publication: Results of an International, Interdisciplinary Course for Central European Faculty Members"</div>
+                            <div class="timeline-period">2021</div>
+                        </div>
+                        <div class="timeline-subtitle">11th Conference of the European Association for the Teaching of Academic Writing, Ostrava, Czech Republic</div>
+                        <p>With Angeniet Kam, Lynda Steyne, Jan Beneš, Eszter Timár</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-title">"Helping Teachers to Internationalise their Courses"</div>
+                            <div class="timeline-period">2021</div>
+                        </div>
+                        <div class="timeline-subtitle">6th Central European Higher Education Cooperation Conference, Online</div>
+                        <p>With Gabriela Pleschová</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-title">"What Helps and What Hinders Reflective Teaching? Discussing results from a collaborative Erasmus+ project?"</div>
+                            <div class="timeline-period">2019</div>
+                        </div>
+                        <div class="timeline-subtitle">Spring Conference of the Staff and Educational Development Association, Belfast, UK</div>
+                        <p>With Gabriela Pleschová</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">Invited Presentations</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-title">"Strategic Cooperation Plan at Project Partner Institutions: Improving Quality of Teaching and Learning in Higher Education"</div>
+                            <div class="timeline-period">April 19-22, 2022</div>
+                        </div>
+                        <div class="timeline-subtitle">The Joint Sessions of Workshops, ECPR, Edinburgh, UK</div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-title">"Learning-centred and Reflective Teaching. From Theory to Good Practice. Course Curriculum, Outcomes and the Book Presenting Teaching Innovations"</div>
+                            <div class="timeline-period">February 21, 2019</div
